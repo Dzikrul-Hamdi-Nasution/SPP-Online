@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Icon -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- METISMENU SCRIPTS -->
+  <script src="assets/js/jquery.metisMenu.js"></script>
+   <!-- MORRIS CHART SCRIPTS -->
+   <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+  <script src="assets/js/morris/morris.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+  <script src="assets/js/custom.js"></script>
+  <script src="html5-qrcode.min.js"></script>
+
+  
+    <title>Rincian Pembayaran</title>
+  </head>
+  <body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #e3f2fd;">
+     <div class="container">   
+    <a class="navbar-brand" href="#">Laporan Pembayaran</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+       
+        <li class="nav-item active">
+          <a class="nav-link js-scroll-trigger" href="admin.html"><i  class="fa fa-dashboard fa-3x"></i>     DASHBOARD<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+
+  <div class="container">
+  	<div class="row">
+  		<div class="col-12 col-md-12 mt-5">
+  			<h3><i class="fas fa-shopping-cart mr-2"></i>Yang Sudah Bayar</h3>
+  			<hr class="hr-menu">
+  			<table id="tabel-status-alat" class="table table-bordered">
+			  <thead>
+			    <tr>
+            <th scope="col">No.</th>
+			      <th scope="col">Nama </th>
+			      <th scope="col">Kelas</th>
+            <th scope="col">Waktu</th>
+			      <th scope="col">Jumlah</th>
+			    </tr>
+			  </thead>
+			 
+			    <tr>
+			    	
+			    </tr>
+          
+			  </tbody>
+        <th scope="row">Total Harga</th>
+			    	<td></td> 
+            <td></td> 
+            <td></td> 
+			    	<td> <input  type="text" id="bayar"  readonly></input></td> 
+			</table>
+      
+		   </div>
+		</div>
+	</div>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="currency.js"></script>
+
+    <script>
+      var config = {
+        apiKey: "AIzaSyBTcdD8pjtS65Ugoe4g_cV5YJ_HneRkgf4",
+            authDomain: "sppsmk3.firebaseapp.com",
+            databaseURL: "https://sppsmk3-default-rtdb.firebaseio.com",
+            projectId: "sppsmk3",
+            storageBucket: "sppsmk3.appspot.com",
+            messagingSenderId: "436715527879",
+            appId: "1:436715527879:web:a2c045c7f9b0c826a068e2",
+            measurementId: "G-46ZC8GK8SG"
+    };
+    firebase.initializeApp(config);
+
+    var dbRef = firebase.database();
+var statusAlat = dbRef.ref("Lunas");
+ 
+// Dapatkan referensi table
+var table = document.getElementById("tabel-status-alat").getElementsByTagName('tbody')[0];;
+ 
+var total_harga=0,nomor=0;
+// Memuat Data
+statusAlat.on("child_added", function(data, prevChildKey) {
+  nomor++
+var newstatusAlat = data.val();
+ 
+var row = table.insertRow(table.rows.length);
+ 
+var cell1 = row.insertCell(0);
+var cell2 = row.insertCell(1);
+var cell3 = row.insertCell(2);
+var cell4 = row.insertCell(3);
+var cell5 = row.insertCell(4);
+
+cell1.innerHTML = nomor;
+cell2.innerHTML = newstatusAlat.nama;
+cell3.innerHTML = newstatusAlat.kelas;
+cell4.innerHTML = newstatusAlat.waktu;
+cell5.innerHTML = newstatusAlat.total;
+
+
+
+total_harga=total_harga+parseInt(cell5.innerHTML);
+var	number_string = total_harga.toString(),
+	sisa 	= number_string.length % 3,
+	rupiah 	= number_string.substr(0, sisa),
+	ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+		
+if (ribuan) {
+	separator = sisa ? '.' : '';
+	rupiah += separator + ribuan.join('.');
+}
+
+$("#bayar").val("Rp "+rupiah);
+
+});
+
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+/* index */
+.img-table {
+	background: url(../img/table.png);
+	background-size: 120px;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+	margin-left: 20%;
+}
+
+.meja {
+	border-bottom: 3px solid blue;
+	border-radius: 20px;
+	padding: 10%;
+	background-color: #fff; 
+}
+
+.meja img {
+	width: 120px;
+	height: 120px;
+
+}
+
+.meja:hover {
+	background-color: rgba(0,0,0,0.1); 
+}
+
+.footer {
+	padding: 2%;
+	font-size: 12px;
+}
+
+.footer a {
+	text-decoration: none;
+}
+
+
+
+/* menu */
+
+.food-menu {
+	padding: 12px 2px;
+}
+
+
+.drink-menu {
+	padding: 12px 2px;
+}
+
+.hr-menu {
+	border: 1px solid #888;
+	border-radius: 2px;
+	width: 25%;
+	float: left;
+	background-color: #888; 
+	display: block;
+}
+
+.form-inc {
+	width: 20%;
+}
+
+.form-snipper {
+	margin: 12px 0px;
+}
